@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wellcome to my profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="w-100 min-vh-100 text-center container d-flex justify-content-center">
+        <div class="position-relative align-self-center w-50 p-5" style="border: 1px gray solid;border-radius: 5px;">
+            <div class="bg-light hasilPerhitungan container position-absolute" style="left: 15%;top:30%;width: 70%;border: gray 1px solid; padding: 10px; border-radius: 5px;display: none;">
+                <p>Hasil untuk BMI anda adalah</p>
+                <p style="font-weight: bold;" class="hasil-bmi"></p>
+                <button type="button" class="btn w-100 btn-secondary" onclick="hilangkan()">Oke</button>
+            </div>
+            <h1>Hitung BMI</h1>
+            <p>Masukan beberapa data dibawah lalu tekan tombol</p>
+
+            <div class="container w-100">
+                <input id="berat" class="form-control" type="number" placeholder="Masukan berat badan" aria-label="default input example">
+                <br>
+                <input id="tinggi" class="form-control" type="number" placeholder="Masukan tinggi badan" aria-label="default input example">
+                <br>
+                <button type="button" class="btn w-100 btn-secondary" onclick="hitungBMI()">Hitung</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function hitungBMI(){
+            const tinggi = $("#tinggi").val();
+            const berat = $("#berat").val();
+            let tinggiMeter = parseInt(tinggi) / 100;
+            let hasilBMI = berat / (tinggiMeter * tinggiMeter)
+            let kategori = "Normal"
+            if(hasilBMI <= 18.4){
+                kategori = "Kurus"
+            }else if(hasilBMI >= 18.5 && hasilBMI <= 25){
+                kategori = "Normal"
+            }else if(hasilBMI > 25 && hasilBMI <= 27){
+                kategori = "Gemuk"
+            }else if(hasilBMI > 27 && hasilBMI < 30){
+                kategori = "Obesitas tingkat 1"
+            }else{
+                kategori = "Obesitas tingkat 2"
+            }
+
+            $(".hasil-bmi").html(hasilBMI.toFixed(2) + " ("+kategori+")");
+
+            $(".hasilPerhitungan").css("display","block");
+        }
+
+        function hilangkan(){
+            $(".hasilPerhitungan").css("display","none");
+        }
+    </script>
+</body>
+</html>
